@@ -74,6 +74,19 @@ async function run() {
       res.send(result);
   })
 
+  // user related api's -> update user (PUT/PATCH)
+  app.patch('/users', async (req, res) => {
+    const user = req.body;
+    const filter = { email: user.email };
+    const updatedDoc = {
+      $set: {
+        lastSignInTime: user.lastSignInTime,
+      },
+    };
+    const result = await userCollection.updateOne(filter, updatedDoc);
+    res.send(result);
+})
+
     app.put('/coffee/:id', async (req, res) => {
           const id = req.params.id;
           const filter = { _id: new ObjectId(id) };
