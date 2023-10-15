@@ -36,6 +36,13 @@ async function run() {
         res.send(result);
     })
 
+    app.get('/coffee/:id', async (req, res)=> {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const coffee = await coffeeCollection.findOne(query);
+        res.send(coffee);
+    })
+
     app.post('/coffee',async(req, res) => {
             const newCoffee = req.body;
             console.log('adding new coffee: ', newCoffee);
